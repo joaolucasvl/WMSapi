@@ -1,0 +1,6 @@
+@LogisticaAPI_HostAddress = http://localhost:5124
+
+GET {{LogisticaAPI_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

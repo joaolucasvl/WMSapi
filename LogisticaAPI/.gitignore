@@ -1,0 +1,18 @@
+# Build output
+bin/
+obj/
+
+# Rider / JetBrains
+.idea/
+
+# macOS
+.DS_Store
+
+# Banco SQLite de desenvolvimento
+*.db
+*.db-shm
+*.db-wal
+
+# Secrets locais (pra quando o JWT entrar)
+appsettings.Development.local.json
+*.user
