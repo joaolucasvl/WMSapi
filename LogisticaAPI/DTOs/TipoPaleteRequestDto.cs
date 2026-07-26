@@ -9,11 +9,14 @@ public class TipoPaleteRequestDto
     public string Nome { get; set; } = string.Empty;
     
     [Required]
+    [Range(0, int.MaxValue)]
     public double PesoMaximo { get; set; }
     
     [Required]
+    [Range(0, int.MaxValue)]
     public double AlturaMaximo { get; set; }
     
     [Required]
+    [Range(0, int.MaxValue)]
     public double VolumeMaximo { get; set; }
 }

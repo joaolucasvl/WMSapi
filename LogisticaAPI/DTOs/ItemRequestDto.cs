@@ -18,7 +18,13 @@ public class ItemRequestDto
     
     [Required(ErrorMessage = "Digite se o item é Perecivel!")]
     public bool Perecivel { get; set; } = false;
+    
+    [Range(0, int.MaxValue)]
     public double VolumeUnitario { get; set; } 
+    
+    [Range(0, int.MaxValue)]
     public double PesoUnitario { get; set; } 
+    
+    [Range(0, int.MaxValue)]
     public double AlturaUnitario { get; set; } 
 }
