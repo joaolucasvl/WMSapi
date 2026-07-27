@@ -1,7 +1,7 @@
 
 using LogisticaAPI.DTOs;
 using LogisticaAPI.Entities;
-using LogisticaAPI.Repositories;
+using LogisticaAPI.Repositories.PaleteRepositories;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LogisticaAPI.Controller;

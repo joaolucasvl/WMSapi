@@ -1,9 +1,12 @@
 using LogisticaAPI.DTOs;
+using LogisticaAPI.DTOs.Paginacao;
 using LogisticaAPI.Entities;
 using LogisticaAPI.Exceptions;
-using LogisticaAPI.Repositories;
+using LogisticaAPI.Repositories.PaleteRepositories;
+using LogisticaAPI.Repositories.CarregamentoRepositories;
+using LogisticaAPI.Repositories.PedidoRepositories;
 
-namespace LogisticaAPI.Services;
+namespace LogisticaAPI.Services.PaleteServices;
 
 public class PaleteService : IPaleteService
 {
@@ -121,5 +124,15 @@ public class PaleteService : IPaleteService
         
         await _paleteRepository.RemoverAlocacao(alocacao);
 
+    }
+
+    public async Task<Palete> GetById(int paleteId)
+    {
+        return await _paleteRepository.GetbyId(paleteId);
+    }
+
+    public async Task<PagedResult<Palete>> GetPaged(QueryableParameters parametros)
+    {
+        return await _paleteRepository.GetPaged(parametros);
     }
 }

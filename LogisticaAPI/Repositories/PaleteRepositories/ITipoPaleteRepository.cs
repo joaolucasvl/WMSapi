@@ -1,6 +1,6 @@
 using LogisticaAPI.Entities;
 
-namespace LogisticaAPI.Repositories;
+namespace LogisticaAPI.Repositories.PaleteRepositories;
 
 public interface ITipoPaleteRepository
 {

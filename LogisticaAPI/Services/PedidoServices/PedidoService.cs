@@ -1,9 +1,11 @@
 using LogisticaAPI.DTOs;
+using LogisticaAPI.DTOs.Paginacao;
 using LogisticaAPI.Entities;
 using LogisticaAPI.Exceptions;
-using LogisticaAPI.Repositories;
+using LogisticaAPI.Repositories.PedidoRepositories;
+using LogisticaAPI.Repositories.ItemRepositories;
 
-namespace LogisticaAPI.Services;
+namespace LogisticaAPI.Services.PedidoServices;
 
 public class PedidoService : IPedidoService
 {
@@ -45,11 +47,11 @@ public class PedidoService : IPedidoService
 
         return await _pedidoRepository.Add(pedido);
     }
-    
-    
-    public async Task<IEnumerable<Pedido?>> GetAll()
+
+
+    public async Task<PagedResult<Pedido>> GetPaged(QueryableParameters parametros)
     {
-        return await _pedidoRepository.GetAll();
+        return await _pedidoRepository.GetPaged(parametros);
     }
 
     public async Task<Pedido?> GetById(int id)

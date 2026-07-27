@@ -1,7 +1,8 @@
 
 using LogisticaAPI.DTOs;
+using LogisticaAPI.DTOs.Paginacao;
 using LogisticaAPI.Entities;
-using LogisticaAPI.Repositories;
+using LogisticaAPI.Repositories.CarregamentoRepositories;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LogisticaAPI.Controller;
@@ -36,10 +37,11 @@ public class LogisticaController : ControllerBase
     
 
     [HttpGet]
-    public async Task<IEnumerable<CarregamentoResponseDto>> Get()
+    [ProducesResponseType(typeof(PagedResult<CarregamentoResponseDto>), StatusCodes.Status200OK)]
+    public async Task<ActionResult<PagedResult<CarregamentoResponseDto>>> Get([FromQuery] QueryableParameters parametros)
     {
-        var carregamentos =  await _repository.GetAll();
-        return carregamentos.Where(c => c is not null).Select(c => MapToResponse(c!));
+        var carregamentos =  await _repository.GetAll(parametros);
+        return Ok(carregamentos.Map(MapToResponse));
     }
 
     [HttpGet("{id}")]

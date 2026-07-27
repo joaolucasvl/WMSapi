@@ -1,7 +1,12 @@
 using LogisticaAPI.Data;
 using LogisticaAPI.Exceptions;
 using LogisticaAPI.Repositories;
-using LogisticaAPI.Services;
+using LogisticaAPI.Repositories.PaleteRepositories;
+using LogisticaAPI.Repositories.CarregamentoRepositories;
+using LogisticaAPI.Repositories.ItemRepositories;
+using LogisticaAPI.Repositories.PedidoRepositories;
+using LogisticaAPI.Services.PaleteServices;
+using LogisticaAPI.Services.PedidoServices;   
 using Microsoft.EntityFrameworkCore;
 using Scalar.AspNetCore;
 

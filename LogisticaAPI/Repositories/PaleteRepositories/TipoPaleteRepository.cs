@@ -2,7 +2,7 @@ using LogisticaAPI.Data;
 using LogisticaAPI.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace LogisticaAPI.Repositories;
+namespace LogisticaAPI.Repositories.PaleteRepositories;
 
 public class TipoPaleteRepository : ITipoPaleteRepository
 {

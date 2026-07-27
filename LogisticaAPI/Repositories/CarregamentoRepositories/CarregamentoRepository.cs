@@ -1,8 +1,9 @@
 using LogisticaAPI.Data;
+using LogisticaAPI.DTOs.Paginacao;
 using LogisticaAPI.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace LogisticaAPI.Repositories;
+namespace LogisticaAPI.Repositories.CarregamentoRepositories;
 
 public class CarregamentoRepository : ICarregamentoRepository
 {
@@ -18,9 +19,13 @@ public class CarregamentoRepository : ICarregamentoRepository
         return await _dbContext.Carregamentos.FirstOrDefaultAsync(c => c.CarregamentoId == id);
     }
 
-    public async Task<IEnumerable<Carregamento?>> GetAll()
+    public async Task<PagedResult<Carregamento>> GetAll(QueryableParameters parametros)
     {
-        return await _dbContext.Carregamentos.AsNoTracking().ToListAsync();
+        return await _dbContext.Carregamentos.
+                                AsNoTracking()
+                                .OrderByDescending(c => c.CriadoEm)
+                                .ThenBy(c => c.CarregamentoId)
+                                .ToPagedResultAsync(parametros);
     }
 
     public async Task<bool> Delete(Guid id)

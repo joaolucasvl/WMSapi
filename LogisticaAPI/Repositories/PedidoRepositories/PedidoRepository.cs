@@ -1,8 +1,9 @@
 using LogisticaAPI.Data;
+using LogisticaAPI.DTOs.Paginacao;
 using LogisticaAPI.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace LogisticaAPI.Repositories;
+namespace LogisticaAPI.Repositories.PedidoRepositories;
 
 public class PedidoRepository : IPedidoRepository
 {
@@ -19,10 +20,17 @@ public class PedidoRepository : IPedidoRepository
         return await _dbContext.Pedidos.Include(p => p.ItensPedido).FirstOrDefaultAsync(p => p.PedidoId == id);
     }
 
-    public async Task<IEnumerable<Pedido?>> GetAll()
+    public async Task<PagedResult<Pedido>> GetPaged(QueryableParameters parametros)
     {
-        return await _dbContext.Pedidos.AsNoTracking().Include(p => p.ItensPedido).ToListAsync();
+        return await _dbContext.Pedidos 
+            .AsNoTracking()    
+            .Include(p => p.ItensPedido)
+            .AsSplitQuery()
+            .OrderByDescending(p => p.CriadoEm)
+            .ThenBy(p => p.PedidoId)
+            .ToPagedResultAsync(parametros);
     }
+    
 
     public async Task<bool> Delete(int id)
     {

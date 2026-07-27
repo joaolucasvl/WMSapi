@@ -1,7 +1,7 @@
 using LogisticaAPI.DTOs;
+using LogisticaAPI.DTOs.Paginacao;
 using LogisticaAPI.Entities;
-using LogisticaAPI.Repositories;
-using LogisticaAPI.Services;
+using LogisticaAPI.Services.PedidoServices;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LogisticaAPI.Controller;
@@ -52,11 +52,11 @@ public class PedidoController : ControllerBase
     
 
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<PedidoResponseDto>>> GetAll()
+    [ProducesResponseType(typeof(PagedResult<PedidoResponseDto>), StatusCodes.Status200OK)]
+    public async Task<ActionResult<PagedResult<PedidoResponseDto>>> GetAll([FromQuery] QueryableParameters parametros)
     {
-        var pedidos = await _pedidoService.GetAll();
-        var response = pedidos.Select(MapToResponse).ToList();
-        return Ok(response);
+        var pagina = await _pedidoService.GetPaged(parametros);
+        return Ok(pagina.Map(MapToResponse));
     }
 
     [HttpGet("{id}")]

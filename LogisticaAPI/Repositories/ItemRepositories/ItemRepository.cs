@@ -1,8 +1,9 @@
 using LogisticaAPI.Data;
+using LogisticaAPI.DTOs.Paginacao;
 using LogisticaAPI.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace LogisticaAPI.Repositories;
+namespace LogisticaAPI.Repositories.ItemRepositories;
 
 public class ItemRepository : IItemRepository
 {
@@ -18,11 +19,15 @@ public class ItemRepository : IItemRepository
         return await _dbContext.Itens.FirstOrDefaultAsync(i => i.ItemId == id);
     }
 
-    public async Task<IEnumerable<Item?>> GetAll()
+    public async Task<PagedResult<Item>> GetPaged(QueryableParameters parametros)
     {
-        var itens = await _dbContext.Itens.AsNoTracking().ToListAsync();
-        return itens;
+        return await _dbContext.Itens
+                                .AsNoTracking()
+                                .OrderBy(i => i.Nome)
+                                .ThenBy(i => i.ItemId)
+                                .ToPagedResultAsync(parametros);
     }
+
 
     public async Task<bool> Delete(int id)
     {

@@ -1,8 +1,9 @@
 using LogisticaAPI.Data;
+using LogisticaAPI.DTOs.Paginacao;
 using LogisticaAPI.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace LogisticaAPI.Repositories;
+namespace LogisticaAPI.Repositories.PaleteRepositories;
 
 public class PaleteRepository : IPaleteRepository
 {
@@ -19,10 +20,16 @@ public class PaleteRepository : IPaleteRepository
         return await _dbContext.Paletes.Include(p => p.Itens).FirstOrDefaultAsync(p => p.PaleteId == id);
     }
 
-    public async Task<IEnumerable<Palete?>> GetAll()
+    public async Task<PagedResult<Palete>> GetPaged(QueryableParameters parametros)
     {
-        return await _dbContext.Paletes.Include(p => p.Itens).ToListAsync();
+        return await _dbContext.Paletes
+                                .Include(p => p.Itens)
+                                .AsNoTracking()
+                                .OrderByDescending(p => p.PaleteId)
+                                .AsSplitQuery()
+                                .ToPagedResultAsync(parametros);
     }
+
 
     public async Task<bool> Delete(int id)
     {

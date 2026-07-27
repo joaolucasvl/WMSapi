@@ -1,7 +1,7 @@
 using LogisticaAPI.DTOs;
+using LogisticaAPI.DTOs.Paginacao;
 using LogisticaAPI.Entities;
-using LogisticaAPI.Repositories;
-using LogisticaAPI.Services;
+using LogisticaAPI.Services.PaleteServices;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LogisticaAPI.Controller;
@@ -38,12 +38,29 @@ public class PaleteController : ControllerBase
         CarregamentoId = p.CarregamentoId,
     };
 
+    [HttpGet("{paleteId}")]
+    public async Task<ActionResult<PaleteResponseDto>> Get(int paleteId)
+    {
+        var palete = await _paleteService.GetById(paleteId);
+        return Ok(MapToPaleteResponse(palete));
+    }
+    
+    [HttpGet]
+    [ProducesResponseType(typeof(PagedResult<PaleteResponseDto>), StatusCodes.Status200OK)]
+    public async Task<ActionResult<PagedResult<PaleteResponseDto>>> GetPaged([FromQuery] QueryableParameters parametros)
+    {
+        var paletes = await _paleteService.GetPaged(parametros);
+        return Ok(paletes.Map(MapToPaleteResponse));
+    }
+    
+    
     [HttpPost]
     public async Task<ActionResult<PaleteResponseDto>> CriarPalete(PaleteRequestDto request)
     {
         var palete = await _paleteService.CriarPalete(request);
         return Ok(MapToPaleteResponse(palete));
     }
+    
 
 
     [HttpPost("{paleteId}")]

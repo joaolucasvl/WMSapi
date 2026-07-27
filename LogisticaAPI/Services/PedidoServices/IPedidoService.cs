@@ -1,11 +1,12 @@
 using LogisticaAPI.DTOs;
+using LogisticaAPI.DTOs.Paginacao;
 using LogisticaAPI.Entities;
 
-namespace LogisticaAPI.Services;
+namespace LogisticaAPI.Services.PedidoServices;
 
 public interface IPedidoService
 {
-    Task<IEnumerable<Pedido?>> GetAll();
+    Task<PagedResult<Pedido>> GetPaged(QueryableParameters parametros);
     Task<Pedido?> GetById(int id);
     Task<Pedido> Create(PedidoRequestDto request);
     Task<Pedido?> Update(int id, PedidoRequestDto request);
