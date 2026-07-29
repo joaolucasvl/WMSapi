@@ -28,7 +28,6 @@ public class RefreshTokenRepository : IRefreshTokenRepository
     public void Adicionar(RefreshToken token)
     {
         _dbContext.RefreshTokens.Add(token);
-        _dbContext.SaveChanges();
     }
 
     public async Task RevogarTodosDoUsuarioAsync(int usuarioId)
@@ -38,7 +37,7 @@ public class RefreshTokenRepository : IRefreshTokenRepository
                                 .ToListAsync();
         
         foreach (var ativo in ativos) 
-            ativo.RevogadoEm = DateTime.Now;
+            ativo.RevogadoEm = DateTime.UtcNow;
             
     }
 }

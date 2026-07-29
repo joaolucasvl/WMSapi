@@ -25,7 +25,6 @@ public class UsuarioRepository : IUsuarioRepository
 
     public void AdicionarUsuario(Usuario usuario)
     {
-        var user = _dbContext.Usuarios.Add(usuario);
-        _dbContext.SaveChanges();
+        _dbContext.Usuarios.Add(usuario);
     }
 }
