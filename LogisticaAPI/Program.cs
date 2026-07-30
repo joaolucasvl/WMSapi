@@ -66,7 +66,11 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 
 builder.Services.AddAuthorization();
 
-builder.Services.AddOpenApi();
+builder.Services.AddOpenApi(opcoes =>
+{
+    opcoes.AddDocumentTransformer<TransformadorSegurancaJwt>();
+    opcoes.AddOperationTransformer<TransformadorSegurancaOperacao>();
+});
 builder.Services.AddProblemDetails();
 
 var app = builder.Build();

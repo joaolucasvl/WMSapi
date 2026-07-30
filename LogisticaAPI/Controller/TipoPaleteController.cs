@@ -2,12 +2,14 @@
 using LogisticaAPI.DTOs;
 using LogisticaAPI.Entities;
 using LogisticaAPI.Repositories.PaleteRepositories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LogisticaAPI.Controller;
 
 [Route("api/[controller]/[action]")]
 [ApiController]
+[Authorize]
 public class TipoPaleteController : ControllerBase
 {
     private ITipoPaleteRepository _repository;

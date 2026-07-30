@@ -2,6 +2,7 @@ using LogisticaAPI.DTOs;
 using LogisticaAPI.DTOs.Paginacao;
 using LogisticaAPI.Entities;
 using LogisticaAPI.Services.PedidoServices;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LogisticaAPI.Controller;
@@ -9,6 +10,7 @@ namespace LogisticaAPI.Controller;
 
 [Route("api/[controller]/[action]")]
 [ApiController]
+[Authorize]
 public class PedidoController : ControllerBase
 {
     private readonly IPedidoService _pedidoService;
